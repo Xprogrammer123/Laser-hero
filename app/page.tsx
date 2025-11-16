@@ -3,6 +3,7 @@
 import { LaserFlow } from "@/components/ui/LaserFlow";
 import { useRef } from "react";
 import Image from "next/image";
+
 export default function Page() {
   const revealImgRef = useRef<HTMLImageElement | null>(null);
 
@@ -39,7 +40,7 @@ export default function Page() {
           verticalBeamOffset={0.0}
           color="#fdfbfcff"
         />
-        
+
         <div
           style={{
             position: "absolute",
@@ -58,10 +59,11 @@ export default function Page() {
           <Image
             src="/image.png"
             alt="Logo"
-            fill // makes image fill the parent
-            style={{ objectFit: "cover" }} // makes it fully cover the box
+            fill
+            style={{ objectFit: "cover" }}
           />
         </div>
+
         <img
           ref={revealImgRef}
           src="/path/to/image.jpg"
@@ -74,15 +76,14 @@ export default function Page() {
             mixBlendMode: "lighten",
             opacity: 0.3,
             pointerEvents: "none",
-            "--mx": "-9999px",
-            "--my": "-9999px",
             WebkitMaskImage:
               "radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 60px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)",
             maskImage:
               "radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 60px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)",
             WebkitMaskRepeat: "no-repeat",
             maskRepeat: "no-repeat",
-          }}
+            // ✅ TypeScript-safe fix for custom CSS variables:
+          } as React.CSSProperties & Record<string, string>}
         />
       </div>
     </div>
